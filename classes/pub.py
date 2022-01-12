@@ -5,10 +5,6 @@ class Pub:
         self.till = till
         self.drinks = []
 
-    # def add_drinks_to_menu(self, drink):
-    #     self.append(drink)
-    #     print(drink)
-
 
     def increase_till_cash(self, drink):
         self.till += drink.price
@@ -22,10 +18,13 @@ class Pub:
 
 
     def sell_drink_to_customer(self, customer, drink):
-        customer.reduce_cash(drink)
-        self.increase_till_cash(drink)
+        customer.check_customer_age()
+        if customer.okay_to_serve == True:
+            customer.reduce_cash(drink)
+            customer.increase_drunkenness(drink)
+            self.increase_till_cash(drink)
+        else: 
+            return("no service")
 
-    def check_customer_age(self, customer):
-        if customer.age < 19:
-            return False
+
     
